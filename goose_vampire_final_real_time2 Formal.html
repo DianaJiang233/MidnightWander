@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>深夜梦境与鹅鹅鹅（实时切换版）</title>
+<link href="https://fonts.googleapis.com/css2?family=Handjet:wght@200&display=block" rel="stylesheet">
+  <style>
+    html, body {
+
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      overflow: hidden;
+      font-family: 'Handjet', cursive;
+      text-align: center;
+      color: white;
+ font-size: 25px; /* 默认字体大小设置成稍大一点 */
+}
+
+#title {
+  font-size: 36px;
+font-family: 'Handjet', cursive;
+
+}
+
+#intro {
+ 
+  font-size: 30px;
+font-family: 'Handjet', cursive;
+z-index: 10
+
+}
+#goodbye {
+  font-size: 30px;
+font-family: 'Handjet', cursive;
+  z-index: 9999; /* 足够大以保证在最上面 */
+}
+#dialogue {
+  position: absolute; /* 添加这句 */
+font-size: 25px;
+ max-width: 400px;
+  word-wrap: break-word;
+
+ }
+.option-btn {
+  font-size: 25px;
+font-family: 'Handjet', cursive;
+    }
+    #story, #flashlight, #background, #options, #intro, #dialogue, #goodbye {
+      display: none;
+    }
+    #dreamImage {
+      margin-top: 20px;
+      display: none;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 90vw;
+      max-height: 80vh;
+      border-radius: 12px;
+      //box-shadow: 0 0 30px rgba(255,255,255,0.4);
+    }
+    .farm-object {
+      position: absolute;
+      width: 280px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      z-index: 2;
+    }
+    #goose {
+      position: absolute;
+      width: 160px;
+      opacity: 0;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      z-index: 3;
+    }
+    #flashlight {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      margin-left: -100px;
+      margin-top: -100px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.3) 40%, rgba(0,0,0,0.9) 70%);
+      mix-blend-mode: lighten;
+      pointer-events: none;
+      z-index: 5;
+ animation: flashlightPulse 2s infinite ease-in-out;
+image-rendering: pixelated;
+    }
+    .option-btn {
+ position: relative;
+font-family: 'Handjet', cursive;
+      margin: 5px;
+      padding: 10px 20px;
+      font-size: 25px;
+      background-color: black;
+      color: white;
+      border: white;
+      border-radius: 10px;
+      cursor: pointer;
+ z-index: 6;
+    }
+@keyframes flashlightPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+  </style>
+</head>
+<body>
+
+<h1 id="title"></h1>
+<div id="story"></div>
+<img id="dreamImage" alt="梦境图像" />
+
+<div id="background"></div>
+
+<img class="farm-object" src="https://dianajiang233.github.io/GooseSing/lake.gif" alt="草堆">
+<img class="farm-object" src="https://dianajiang233.github.io/GooseSing/house.gif" alt="小屋">
+<img class="farm-object" src="https://dianajiang233.github.io/GooseSing/fence.gif" alt="栅栏">
+<img class="farm-object" src="https://dianajiang233.github.io/GooseSing/fence.gif" alt="栅栏">
+<img class="farm-object" src="https://dianajiang233.github.io/GooseSing/fence.gif" alt="栅栏">
+<img class="farm-object" src="https://dianajiang233.github.io/GooseSing/hay.gif" alt="干草车">
+<img class="farm-object" src="https://dianajiang233.github.io/GooseSing/hay.gif" alt="干草车">
+<img class="farm-object" src="https://dianajiang233.github.io/GooseSing/hay.gif" alt="干草车">
+<img class="farm-object" src="https://dianajiang233.github.io/GooseSing/hay.gif" alt="干草车">
+<img class="farm-object" src="https://dianajiang233.github.io/GooseSing/well.gif" alt="水井">
+<img class="farm-object" src="https://dianajiang233.github.io/GooseSing/grass.gif" alt="草">
+<img class="farm-object" src="https://dianajiang233.github.io/GooseSing/grass.gif" alt="草">
+<img class="farm-object" src="https://dianajiang233.github.io/GooseSing/grass.gif" alt="草">
+<img class="farm-object" src="https://dianajiang233.github.io/GooseSing/grass.gif" alt="草">
+<img class="farm-object" src="https://dianajiang233.github.io/GooseSing/tree.gif" alt="树">
+<img class="farm-object" src="https://dianajiang233.github.io/GooseSing/tree.gif" alt="树">
+<img class="farm-object" src="https://dianajiang233.github.io/GooseSing/tree.gif" alt="树">
+<img class="farm-object" src="https://dianajiang233.github.io/GooseSing/vege.gif" alt="菜">
+<img class="farm-object" src="https://dianajiang233.github.io/GooseSing/vege.gif" alt="菜">
+<img class="farm-object" src="https://dianajiang233.github.io/GooseSing/vege.gif" alt="菜">
+<img class="farm-object" src="https://dianajiang233.github.io/GooseSing/vege.gif" alt="菜">
+<img class="farm-object" src="https://dianajiang233.github.io/GooseSing/vege.gif" alt="菜">
+<img class="farm-object" src="https://dianajiang233.github.io/GooseSing/vege.gif" alt="菜">
+<img id="goodbyeGif" src="https://dianajiang233.github.io/GooseSing/sleep.gif"
+     style="display: none; width: 500px; margin: 20px auto 0;" alt="sleepy goose" />
+<img id="goose" src="https://dianajiang233.github.io/GooseSing/goose.gif" alt="大鹅" />
+<div id="flashlight"></div>
+
+<div id="intro">The farm's goose has gone missing. If I don't find it, people will think I ate it.</div>
+<div id="options"></div>
+<div id="dialogue" style="display:none;"></div>
+<div id="goodbye" style="display:none;"></div>
+
+<audio id="gooseSound" src="https://cdn.pixabay.com/download/audio/2022/10/13/audio_8f0022c51e.mp3?filename=goose-cry-ambient-122014.mp3" preload="auto"></audio>
+
+<script>
+  const title = document.getElementById("title");
+  const storyBox = document.getElementById("story");
+  const dreamImg = document.getElementById("dreamImage");
+  const background = document.getElementById("background");
+  const flashlight = document.getElementById("flashlight");
+  const goose = document.getElementById("goose");
+  const intro = document.getElementById("intro");
+  const options = document.getElementById("options");
+  const dialogue = document.getElementById("dialogue");
+  const goodbye = document.getElementById("goodbye");
+  const farms = Array.from(document.getElementsByClassName('farm-object'));
+  const gooseSound = document.getElementById("gooseSound");
+
+  let found = false;
+  let gooseMode = false;
+  let goodbyeShown = false;
+
+  const dialogues = [
+    {question: "Why are you here?", answer: "All I could hear was the restless rustling of my own movements, lost among the heavy snoring around me. Sleep felt distant, unreachable. In the end, I slipped outside to be alone with the night."},
+    {question: "Why aren't you asleep, like all the others on the farm?", answer: "I tried, but I couldn't. Yesterday, I thought I would be able to fall asleep today. The day before yesterday, I believed I could fall asleep yesterday."},
+    {question: "Are you cold?", answer: "The warm air before sleep destabilizes my heartbeat, but the cold air that follows after I fall asleep will make me catch a cold."},
+    {question: "Where are you going?", answer: "I'm going to bed."},
+    {question: "Do you like the nights on the farm?", answer: "I love the farm between 11 PM and 1 AM — it feels full of hope. I also love the farm between 6 and 7 in the morning — because that's when I can finally stop struggling. Everything in between is just a struggle. "},
+    {question: "Are you hungry?", answer: "Yes, but I already brushed my teeth. Next time I should wait till I finish all the snacks."},
+    {question: "Are you afraid of the darkness?", answer: "No, I stared into the night, and it stared back at me."},
+    {question: "Are you dreaming?", answer: "I'm not. I'm very awake. I dream only in the day."},
+  ];
+
+  function startGooseGame() {
+    gooseMode = true;
+    background.style.display = 'block';
+    flashlight.style.display = 'block';
+    intro.style.display = 'block';
+    randomizePositions();
+    setTimeout(() => { intro.style.display = 'none'; }, 7000);
+  }
+
+  function showOptions() {
+    options.innerHTML = "";
+    const picked = dialogues.sort(() => 0.5 - Math.random()).slice(0, 3);
+    picked.forEach(d => {
+      const btn = document.createElement("button");
+      btn.className = "option-btn";
+      btn.innerText = d.question;
+      btn.onclick = () => respond(d.answer);
+      options.appendChild(btn);
+    });
+    options.style.display = 'block';
+  }
+
+  function respond(answer) {
+  options.style.display = 'none';
+  dialogue.innerHTML = answer;
+  dialogue.style.display = 'block';
+
+  // 获取鹅的位置
+  const gooseRect = goose.getBoundingClientRect();
+  const scrollX = window.scrollX || 0;
+  const scrollY = window.scrollY || 0;
+
+  // 计算初始对话框位置（鹅的右上角）
+  let left = gooseRect.left + gooseRect.width + 10 + scrollX;
+  let top = gooseRect.top - 20 + scrollY;
+
+  // 获取窗口宽高 & 对话框宽高
+  const windowWidth = window.innerWidth;
+  const windowHeight = window.innerHeight;
+  const dialogueRect = dialogue.getBoundingClientRect();
+
+  // 如果对话框超出右边，就放到鹅左边
+  if (left + dialogueRect.width > windowWidth) {
+    left = gooseRect.left - dialogueRect.width - 10 + scrollX;
+  }
+
+  // 如果超出上边，就放到鹅下方
+  if (top < 0) {
+    top = gooseRect.bottom + 10 + scrollY;
+  }
+
+  // 应用位置
+  dialogue.style.left = `${left}px`;
+  dialogue.style.top = `${top}px`;
+
+
+  // 恢复选项按钮
+  setTimeout(() => { if (!goodbyeShown) showOptions(); }, 2000);
+}  function randomizePositions() {
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+
+    goose.style.left = Math.random() * (windowWidth - 160) + 'px';
+    goose.style.top = Math.random() * (windowHeight - 160) + 'px';
+
+    farms.forEach(farm => {
+      farm.style.left = Math.random() * (windowWidth - 100) + 'px';
+      farm.style.top = Math.random() * (windowHeight - 100) + 'px';
+    });
+  }
+
+  function switchToDream() {
+    gooseMode = false;
+    background.style.display = 'none';
+    flashlight.style.display = 'none';
+    goose.style.display = 'none';
+    options.style.display = 'none';
+    dialogue.style.display = 'none';
+    goodbye.style.display = 'none';
+    title.textContent = "As a vampire, you are dreaming...";
+ farms.forEach(farm => {
+    farm.style.display = 'none';
+document.getElementById("goodbyeGif").style.display = 'none';
+  });
+
+    const dreams = [
+      {text: "The rainy dusk after school was a pale grey. You and another vampire stood together, watching the rain fall.", img: "https://dianajiang233.github.io/GooseSing/greyrain).gif"},
+      {text: "As you swung your arms upward, the airflow lifted you to an unexpected height. The temple, its stone-paved streets, and the people grew distant below you.", img: "https://dianajiang233.github.io/GooseSing/fly.gif"},
+      {text: "You wander through every corner of the apartment, on the edge of sleep. Deep orange and blue fall upon the windows. You linger in front of the fridge.", img: "https://dianajiang233.github.io/GooseSing/frige.gif"},
+      {text: "You flew out of the factory, a place filled with waste and watch. But the one escaping with you was still at the window — you reached out, but only managed to pull half of their body.", img: "https://dianajiang233.github.io/GooseSing/windowout3.gif"},
+      {text: "You're sketching, and a dog sits beside you, watching. It's a dog from the crematorium—its fur is sparse, but very clean.", img: "https://dianajiang233.github.io/GooseSing/sketch.gif"}
+    ];
+    const dream = dreams[Math.floor(Math.random() * dreams.length)];
+    storyBox.innerText = dream.text;
+    storyBox.style.display = "block";
+    dreamImg.src = dream.img;
+    dreamImg.style.display = "block";
+  }
+
+  document.addEventListener('mousemove', function(e) {
+    if (!gooseMode) return;
+    flashlight.style.left = e.pageX + 'px';
+    flashlight.style.top = e.pageY + 'px';
+
+    [goose, ...farms].forEach(obj => {
+      const rect = obj.getBoundingClientRect();
+      const dx = e.clientX - (rect.left + rect.width/2);
+      const dy = e.clientY - (rect.top + rect.height/2);
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (obj === goose && found) {
+        obj.style.opacity = 1;
+      } else if (distance < 100) {
+        obj.style.opacity = 1;
+      } else {
+        if (!(obj === goose && found)) {
+          obj.style.opacity = 0;
+        }
+      }
+    });
+
+    const rect = goose.getBoundingClientRect();
+    const dx = e.clientX - (rect.left + rect.width/2);
+    const dy = e.clientY - (rect.top + rect.height/2);
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    if (distance < 80 && !found) {
+      found = true;
+      goose.style.transform = 'scale(1.1)';
+      gooseSound.play();
+      setTimeout(() => { showOptions(); }, 1000);
+    }
+  });
+
+  const init = new Date();
+  if (init.getHours() === 22 && init.getMinutes() < 40) {
+    startGooseGame();
+  } else {
+    switchToDream();
+  }
+
+  setInterval(() => {
+    const now = new Date();
+    if (now.getHours() === 22 && now.getMinutes() === 39 && now.getSeconds() === 55 && gooseMode && !goodbyeShown) {
+      options.style.display = 'none';
+      dialogue.style.display = 'none';
+      goodbye.style.display = 'block';
+document.getElementById("goodbyeGif").style.display = 'block'; 
+      goodbye.innerHTML = 'I am going to dream now, so do you，<br>If you are still awake this time tomorrow, like me, let us meet on the <a href="https://dianajiang233.github.io/GooseSing/" style="color: #4fc3f7;">field ridge</a>.';
+      goodbyeShown = true;
+    }
+    if (now.getHours() === 22 && now.getMinutes() === 40 && gooseMode) {
+      switchToDream();
+    }
+  }, 1000);
+</script>
+
+</body>
+</html>
