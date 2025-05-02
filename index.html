@@ -341,12 +341,16 @@ document.getElementById("goodbyeGif").style.display = 'none';
     }
   });
 
-  const init = new Date();
-  if (init.getHours() === 21 && init.getMinutes() < 15) {
+ window.addEventListener('load', () => {
+  document.body.style.display = 'block';
+  
+  const now = new Date();
+  if (now.getHours() === 21 && now.getMinutes() < 15) {
     startGooseGame();
   } else {
     switchToDream();
   }
+});
 
 setInterval(() => {
   const now = new Date();
@@ -375,9 +379,7 @@ setInterval(() => {
     switchToDream();
   }
 }, 1000);
-  window.addEventListener('load', () => {
-  document.body.style.display = 'block';
-});
+  
 </script>
 
 </body>
