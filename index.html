@@ -340,7 +340,7 @@ document.getElementById("goodbyeGif").style.display = 'none';
   });
 
   const init = new Date();
-  if (init.getHours() === 20 && init.getMinutes() < 45) {
+  if (init.getHours() === 20 && init.getMinutes() < 51) {
     startGooseGame();
   } else {
     switchToDream();
@@ -350,7 +350,7 @@ setInterval(() => {
   const now = new Date();
 
   // 🕙 22:39:55 — 黑屏 + goodbye + link
-  if (now.getHours() === 20 && now.getMinutes() === 44 && now.getSeconds() === 55 && gooseMode && !goodbyeShown) {
+  if (now.getHours() === 20 && now.getMinutes() === 49 && now.getSeconds() === 55 && gooseMode && !goodbyeShown) {
     // 切换黑屏
     const overlay = document.getElementById('goodbyeOverlay');
     overlay.style.pointerEvents = 'auto';
@@ -369,7 +369,7 @@ setInterval(() => {
   }
 
   // 🕙 22:40:00 — 切换进入梦境
-  if (now.getHours() === 20 && now.getMinutes() === 45 && gooseMode) {
+  if (now.getHours() === 20 && now.getMinutes() === 50 && gooseMode) {
     switchToDream();
   }
 }, 1000);
