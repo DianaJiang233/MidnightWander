@@ -277,6 +277,8 @@ font-family: 'Handjet', cursive;
   }
 
   function switchToDream() {
+    document.getElementById('goodbyeOverlay').style.opacity = 0;
+document.getElementById('goodbyeOverlay').style.pointerEvents = 'none';
     gooseMode = false;
     background.style.display = 'none';
     flashlight.style.display = 'none';
