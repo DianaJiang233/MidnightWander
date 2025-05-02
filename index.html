@@ -152,8 +152,28 @@ font-family: 'Handjet', cursive;
 <div id="intro">The farm's goose has gone missing. If I don't find it, people will think I ate it.</div>
 <div id="options"></div>
 <div id="dialogue" style="display:none;"></div>
-<div id="goodbye" style="display:none;"></div>
 
+<div id="goodbyeOverlay" style="
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  color: white;
+  font-size: 40px;
+  font-family: 'Handjet', cursive;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 2s ease;
+  z-index: 9999;
+">
+  <div id="goodbye" style="display: none;"></div>
+  <img id="goodbyeGif" style="display: none; width: 120px; margin-top: 20px;" />
+</div>
 <audio id="gooseSound" src="https://cdn.pixabay.com/download/audio/2022/10/13/audio_8f0022c51e.mp3?filename=goose-cry-ambient-122014.mp3" preload="auto"></audio>
 
 <script>
@@ -326,20 +346,33 @@ document.getElementById("goodbyeGif").style.display = 'none';
     switchToDream();
   }
 
-  setInterval(() => {
-    const now = new Date();
-    if (now.getHours() === 22 && now.getMinutes() === 39 && now.getSeconds() === 55 && gooseMode && !goodbyeShown) {
-      options.style.display = 'none';
-      dialogue.style.display = 'none';
-      goodbye.style.display = 'block';
-document.getElementById("goodbyeGif").style.display = 'block'; 
+setInterval(() => {
+  const now = new Date();
+
+  // 🕙 22:39:55 — 黑屏 + goodbye + link
+  if (now.getHours() === 20 && now.getMinutes() === 34 && now.getSeconds() === 55 && gooseMode && !goodbyeShown) {
+    // 切换黑屏
+    const overlay = document.getElementById('goodbyeOverlay');
+    overlay.style.pointerEvents = 'auto';
+    overlay.style.opacity = 1;
+
+    // 显示文本和链接
+    setTimeout(() => {
+      const goodbye = document.getElementById('goodbye');
+      const goodbyeGif = document.getElementById('goodbyeGif');
+      if (goodbye) goodbye.style.display = 'block';
+      if (goodbyeGif) goodbyeGif.style.display = 'block';
+
       goodbye.innerHTML = 'I am going to dream now, so do you，<br>If you are still awake this time tomorrow, like me, let us meet on the <a href="https://dianajiang233.github.io/FarmRidge/" style="color: #4fc3f7;">field ridge</a>.';
       goodbyeShown = true;
-    }
-    if (now.getHours() === 22 && now.getMinutes() === 40 && gooseMode) {
-      switchToDream();
-    }
-  }, 1000);
+    }, 2000); // 稍微延迟内容出现
+  }
+
+  // 🕙 22:40:00 — 切换进入梦境
+  if (now.getHours() === 20 && now.getMinutes() === 35 && gooseMode) {
+    switchToDream();
+  }
+}, 1000);
 </script>
 
 </body>
