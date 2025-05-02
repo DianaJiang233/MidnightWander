@@ -113,8 +113,8 @@ font-family: 'Handjet', cursive;
 }
   </style>
 </head>
-<body>
 
+<body style="display: none">
 <h1 id="title"></h1>
 <div id="story"></div>
 <img id="dreamImage" alt="梦境图像" />
@@ -342,7 +342,7 @@ document.getElementById("goodbyeGif").style.display = 'none';
   });
 
   const init = new Date();
-  if (init.getHours() === 20 && init.getMinutes() < 58) {
+  if (init.getHours() === 21 && init.getMinutes() < 4) {
     startGooseGame();
   } else {
     switchToDream();
@@ -352,7 +352,7 @@ setInterval(() => {
   const now = new Date();
 
   // 🕙 22:39:55 — 黑屏 + goodbye + link
-  if (now.getHours() === 20 && now.getMinutes() === 56 && now.getSeconds() === 55 && gooseMode && !goodbyeShown) {
+  if (now.getHours() === 21 && now.getMinutes() === 3 && now.getSeconds() === 55 && gooseMode && !goodbyeShown) {
     // 切换黑屏
     const overlay = document.getElementById('goodbyeOverlay');
     overlay.style.pointerEvents = 'auto';
@@ -371,10 +371,13 @@ setInterval(() => {
   }
 
   // 🕙 22:40:00 — 切换进入梦境
-  if (now.getHours() === 20 && now.getMinutes() === 57 && gooseMode) {
+  if (now.getHours() === 21 && now.getMinutes() === 4 && gooseMode) {
     switchToDream();
   }
 }, 1000);
+  window.addEventListener('load', () => {
+  document.body.style.display = 'block';
+});
 </script>
 
 </body>
